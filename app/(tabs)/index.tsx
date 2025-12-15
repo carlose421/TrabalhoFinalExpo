@@ -96,3 +96,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+// Arquivo removido da apresentação do app.

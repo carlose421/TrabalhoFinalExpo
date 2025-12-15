@@ -2,5 +2,5 @@ import { Redirect } from 'expo-router';
 
 export default function AppIndex() {
   // Sempre redireciona para a tela de login ao abrir o app
-  return <Redirect href="/auth/login" />;
+  // Arquivo removido da apresentação do app.
 }
