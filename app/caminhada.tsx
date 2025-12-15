@@ -166,8 +166,8 @@ export default function CaminhadaScreen() {
           </View>
           <View style={styles.btnRow}>
             <TouchableOpacity style={styles.pauseBtn} onPress={pauseWalk}><Text style={styles.pauseBtnText}>Pausar</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.finishBtn} onPress={finishWalk}>
-              <Text style={styles.finishBtnText} onPress={finishWalk}>Concluir</Text>
+            <TouchableOpacity style={styles.finishBtn} onPress={finishWalk} activeOpacity={0.7}>
+              <Text style={styles.finishBtnText}>Concluir</Text>
             </TouchableOpacity>
           </View>
         </>
