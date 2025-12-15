@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Modal } from 'react-native';
 
 const sections = [
   {
@@ -27,25 +27,70 @@ const sections = [
     ],
   },
 ];
-
 export default function BoaFormaScreen() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+
+  // Conteúdo relacionado a cada tema
+  const getContent = (title: string) => {
+    switch (title) {
+      case 'Meditação':
+        return 'Meditação do dia: experimente 5 minutos de respiração consciente para relaxar corpo e mente.';
+      case 'Histórias de sono':
+        return 'História de sono: "A Floresta Encantada". Ouça para dormir melhor e relaxar.';
+      case 'Relax':
+        return 'Dica de relaxamento: alongue-se e faça uma pausa de 3 minutos para aliviar o estresse.';
+      default:
+        return '';
+    }
+  };
+
+  const handleCardPress = (title: string) => {
+    const content = getContent(title);
+    if (content) {
+      setModalContent(content);
+      setModalVisible(true);
+    }
+  };
+
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Boa Forma</Text>
-      {sections.map((section, idx) => (
-        <View key={idx} style={styles.sectionBox}>
-          <Text style={styles.sectionTitle}>{section.title}</Text>
-          <View style={styles.cardRow}>
-            {section.data.map((card, cidx) => (
-              <View key={cidx} style={styles.card}>
-                <Image source={{ uri: card.image }} style={styles.cardImage} />
-                <Text style={styles.cardTitle}>{card.title}</Text>
-              </View>
-            ))}
+    <>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}>Boa Forma</Text>
+        {sections.map((section, idx) => (
+          <View key={idx} style={styles.sectionBox}>
+            <Text style={styles.sectionTitle}>{section.title}</Text>
+            <View style={styles.cardRow}>
+              {section.data.map((card, cidx) => {
+                const isTema = ['Meditação', 'Histórias de sono', 'Relax'].includes(card.title);
+                return isTema ? (
+                  <TouchableOpacity key={cidx} style={styles.card} onPress={() => handleCardPress(card.title)}>
+                    <Image source={{ uri: card.image }} style={styles.cardImage} />
+                    <Text style={styles.cardTitle}>{card.title}</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <View key={cidx} style={styles.card}>
+                    <Image source={{ uri: card.image }} style={styles.cardImage} />
+                    <Text style={styles.cardTitle}>{card.title}</Text>
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+      <Modal visible={modalVisible} transparent animationType="fade">
+        <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.3)' }}>
+          <View style={{ backgroundColor:'#fff', padding:24, borderRadius:16, minWidth:260, alignItems:'center' }}>
+            <Text style={{ fontSize:18, fontWeight:'bold', marginBottom:12 }}>Atividade</Text>
+            <Text style={{ fontSize:16, marginBottom:20, textAlign:'center' }}>{modalContent}</Text>
+            <TouchableOpacity onPress={() => setModalVisible(false)} style={{ backgroundColor:'#27ae60', borderRadius:8, paddingVertical:8, paddingHorizontal:24 }}>
+              <Text style={{ color:'#fff', fontWeight:'bold', fontSize:16 }}>Fechar</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      ))}
-    </ScrollView>
+      </Modal>
+    </>
   );
 }
 
