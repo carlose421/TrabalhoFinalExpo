@@ -83,11 +83,6 @@ export default function InicioScreen() {
           <Text style={styles.metricValue}>{agua} mL</Text>
           <Text style={styles.metricLabel}>Água</Text>
         </TouchableOpacity>
-        <View style={styles.metricCardFull}>
-          <MaterialCommunityIcons name="water-outline" size={32} color="#222" />
-          <Text style={styles.metricValue}>0 mL</Text>
-          <Text style={styles.metricLabel}>Meta</Text>
-        </View>
       </View>
       <Modal visible={modalVisible} transparent animationType="fade">
         <View style={{ flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'rgba(0,0,0,0.3)' }}>
